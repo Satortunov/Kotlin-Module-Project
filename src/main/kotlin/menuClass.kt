@@ -13,11 +13,10 @@ class MenuCreate
     {
         println(input)
     }
-    fun showMenu(menuTitle : String, menuItems : List<Menu>) : Int
+    fun showMenu(menuItems : List<Menu>) : Int
     {
         var exitCode: Boolean = true
         var menuNumber: String? = "0"
-        println(menuTitle)
         while (exitCode) {
 
             for (item in menuItems) {

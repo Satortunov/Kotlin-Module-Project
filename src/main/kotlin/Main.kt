@@ -17,17 +17,12 @@ fun main(args: Array<String>)
         firstMenuItems,
         secondMenuItems,
     )
-    val menuTitles: List<String> = listOf(
-        "Главное меню",
-        "Создание архивов",
-        "Работа с существующими архивами",
-    )
-    var currentMenu = MenuCreate(listOfMenu[0])
+      var currentMenu = MenuCreate(listOfMenu[0])
     var i: Int = 0
     var showMenu: Boolean = true
     var choosePoint: Int = 0
     while (showMenu) {
-        choosePoint = currentMenu.showMenu(menuTitles[i], listOfMenu[i],)
+        choosePoint = currentMenu.showMenu( listOfMenu[i],)
         if(choosePoint == (listOfMenu[i].size + 1)) {
             if (i <= 0) {
                 showMenu = false
@@ -35,7 +30,7 @@ fun main(args: Array<String>)
                 i--
             }
         } else {
-            i++
+            i = choosePoint
         }
         println(i)
         println(choosePoint)
