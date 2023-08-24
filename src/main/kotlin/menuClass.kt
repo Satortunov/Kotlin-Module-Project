@@ -1,7 +1,7 @@
 package MenuClass
 
 
-data class Menu(val number: Int, val title: String)
+data class Menu(val number: Int, val title: String,)
 
 class MenuCreate
  (
@@ -9,10 +9,15 @@ class MenuCreate
 )
 
 {
-    fun showMenu(menuItems : List<Menu>) : Int
+    fun actionTodo(input: String)
+    {
+        println(input)
+    }
+    fun showMenu(menuTitle : String, menuItems : List<Menu>) : Int
     {
         var exitCode: Boolean = true
         var menuNumber: String? = "0"
+        println(menuTitle)
         while (exitCode) {
 
             for (item in menuItems) {
@@ -33,15 +38,16 @@ class MenuCreate
                 }
             }
             if (rightEntry == true) {
-                if (menuNumber == (menuItems.size + 1).toString()) {
+                exitCode = false
+                /*if (menuNumber == (menuItems.size + 1).toString()) {
 
                     exitCode = false
-                }
+                }*/
             } else {
                 println("Вы ввели неправильное значение")
             }
         }
-        return menuItems.size
+        return menuNumber.toString().toInt()
     }
 
  }
