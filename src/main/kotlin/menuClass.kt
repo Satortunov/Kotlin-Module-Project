@@ -1,18 +1,20 @@
 package MenuClass
 
 
-data class Menu(val number: Int, val title: String,)
-
+class Menu(val number: Int, val title: String, val action: () -> Unit)
+{
+    fun actionToDo() {
+        println("OK")
+    }
+}
 class MenuCreate
  (
     val menuItems:  List<Menu> = ArrayList()
 )
 
 {
-    fun actionTodo(input: String)
-    {
-        println(input)
-    }
+
+
     fun showMenu(menuItems : List<Menu>) : Int
     {
         var exitCode: Boolean = true
