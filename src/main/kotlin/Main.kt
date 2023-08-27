@@ -3,20 +3,44 @@ import WorkWithArchives.*
 
 fun main(args: Array<String>)
 {
+    var newArchive:  = ArchiveActions()
     var arciveList:  MutableList<Archive> = ArrayList()
-    var newArchive: ArchiveActions = ArchiveActions()
+    var showMenu: Boolean = true
 
-    for (i in 0..5) {
+    val mainMenuItems: List<Menu> = listOf(
+        Menu(1, "Создать архив", { newArchive.createArchieve(arciveList) } ),
+        Menu(2, "Созданные архивы", { newArchive.showArchieve(arciveList) })
+    )
+    val listOfMenu:  List<List<Menu>> = listOf(
+        mainMenuItems,
+/*        firstMenuItems,
+        secondMenuItems,*/
+    )
+
+    while (showMenu){
+
+    }
+    /*
+
+
+    var notesList:  MutableList<Notes> = ArrayList()
+
+    for (i in 0..3) {
         newArchive.createArchieve(arciveList)
     }
+    for (i in 0..2) {
+        newArchive.createNote(arciveList[1])
+    }
     newArchive.showArchieve(arciveList)
+    for (i in 0 .. arciveList.size - 1){
+        for (j in 0..arciveList[i].notes.size - 1) {
+            println("${arciveList[i].notes[j].notesName}: ${arciveList[i].notes[j].notesText}")
+        }
+    }
     newArchive.deleteArchieveItem(arciveList)
     newArchive.showArchieve(arciveList)
 
-
-
-
-   /* val mainMenuItems: List<Menu> = listOf(
+    val mainMenuItems: List<Menu> = listOf(
         Menu(1, "Создать архив", { println("One") } ),
         Menu(2, "Созданные архивы", { println("Two") })
     )
@@ -26,14 +50,9 @@ fun main(args: Array<String>)
     val secondMenuItems: List<Menu> = listOf(
         Menu(1, "Работа с имеющимися архивами"),
     )
-    val listOfMenu:  List<List<Menu>> = listOf(
-        mainMenuItems,
-        /*firstMenuItems,
-        secondMenuItems,*/
-    )
     var currentMenu = MenuCreate(listOfMenu[0])
     var i: Int = 0
-    var showMenu: Boolean = true
+
     var choosePoint: Int = 0
     var currentMenuNum: Int = 0
 
