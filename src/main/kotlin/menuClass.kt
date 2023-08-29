@@ -1,54 +1,46 @@
 package MenuClass
 
 
-class Menu(val number: Int, val title: String, val action: () -> Unit)
+class Menu(val number: Int, val title: String, val action: (Any) -> Any)
 {
-    fun actionToDo() {
-        println("OK")
-    }
+
 }
 class MenuCreate
  (
-    val menuItems:  List<Menu> = ArrayList()
+   // val menuItems:  List<Menu> = ArrayList()
 )
 
 {
+ fun showMenu(menuItems : List<Menu>) : Int
+ {
+  var exitCode: Boolean = true
+  var menuItemNumber: String? = "0"
+  while (exitCode) {
+
+   for (item in menuItems) {
+    println("${item.number} - ${item.title}")
+   }
+   println("${menuItems.size + 1} - Выход")
 
 
-    fun showMenu(menuItems : List<Menu>) : Int
-    {
-        var exitCode: Boolean = true
-        var menuNumber: String? = "0"
-        while (exitCode) {
-
-            for (item in menuItems) {
-                println("${item.number} - ${item.title}")
-            }
-            println("${menuItems.size + 1} - Выход")
-
-
-            print("Введите номер элемента меню: ")
-            menuNumber = readLine()
-            var rightEntry: Boolean = false
-            for (item in menuItems) {
-                if (menuNumber == item.number.toString()) {
-                    rightEntry = true
-                }
-                if (menuNumber == (item.number + 1).toString()) {
-                    rightEntry = true
-                }
-            }
-            if (rightEntry == true) {
-                exitCode = false
-                /*if (menuNumber == (menuItems.size + 1).toString()) {
-
-                    exitCode = false
-                }*/
-            } else {
-                println("Вы ввели неправильное значение")
-            }
-        }
-        return menuNumber.toString().toInt()
+   print("Введите номер элемента меню: ")
+   menuItemNumber = readLine()
+   var rightEntry: Boolean = false
+   for (item in menuItems) {
+    if (menuItemNumber == item.number.toString()) {
+     rightEntry = true
     }
+    if (menuItemNumber == (item.number + 1).toString()) {
+     rightEntry = true
+    }
+   }
+   if (rightEntry == true) {
+    exitCode = false
+   } else {
+    println("Вы ввели неправильное значение")
+   }
+  }
+  return menuItemNumber.toString().toInt()
+ }
 
  }

@@ -1,0 +1,32 @@
+fun main(args: Array<String>)
+{
+    var newArchive: ArchiveActions = ArchiveActions()
+    var arciveList:  MutableList<Archive> = ArrayList()
+    var showMenu: Boolean = true
+
+    val mainMenuItems: List<Menu> = listOf(
+        Menu(1, "Работа с архивами",  { Menu.showMenu(1)} ),
+        Menu(2, "Работа с заметками", {} ),
+    )
+
+    val firstMenuItems: List<Menu> = listOf(
+        Menu(1, "Создать архив", {}),
+        Menu(2, "Удалить архив", {}),
+    )
+    val secondMenuItems: List<Menu> = listOf(
+        Menu(1, "Создать заметку", {}),
+        Menu(2, "Удалить заметку", {}),
+    )
+     val listOfMenu:  List<List<Menu>> = listOf(
+        mainMenuItems,
+        firstMenuItems,
+        secondMenuItems,
+    )
+
+    var currentMenu = MenuCreate(listOfMenu[0])
+    var currentMenuItem = currentMenu.showMenu(listOfMenu[0])
+    listOfMenu[0][0].action()
+
+    println(listOfMenu[0][0].title)
+
+}
