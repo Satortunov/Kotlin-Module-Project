@@ -1,7 +1,7 @@
 package MenuClass
 
 
-class Menu(val number: Int, val title: String, val action: (Any) -> Any)
+class Menu(val number: Int, val title: String, val action: () -> Unit)
 {
 
 }

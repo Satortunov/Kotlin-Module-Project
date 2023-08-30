@@ -1,6 +1,5 @@
 package WorkWithArchives
 
-import MenuClass.Menu
 
 class Notes(var notesName: String, var notesText: String)
 {
