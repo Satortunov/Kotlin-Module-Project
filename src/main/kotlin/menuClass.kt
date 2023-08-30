@@ -5,6 +5,12 @@ class Menu(val number: Int, val title: String, val action: () -> Unit)
 {
 
 }
+
+class MenuItem(val number: Int, val items: List<Menu>)
+{
+
+}
+
 class MenuCreate
  (
    // val menuItems:  List<Menu> = ArrayList()

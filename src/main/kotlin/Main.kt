@@ -5,12 +5,12 @@ fun main(args: Array<String>)
 {
     var archiveWorks: ArchiveActions = ArchiveActions()
     var notesList : MutableList<Notes> = ArrayList()
-    var archiveList : MutableList<Archive> = arrayListOf(Archive("assa", notesList))
-    var currentMenu: MenuCreate = MenuCreate()
+    var archiveList : MutableList<Archive> = ArrayList()
+    var menuChoice: MenuCreate = MenuCreate()
     var currentArchive: Archive = Archive("", notesList)
 
     val secondMenuItems: List<Menu> = listOf(
-        Menu(0, "Создать заметку", { archiveWorks.createNote(currentArchive) }),
+        Menu(0, "Создать заметку", {  }),
         Menu(1, "Удалить заметку", { archiveWorks.deleteNotesItem(notesList) }),
     )
 
@@ -20,17 +20,37 @@ fun main(args: Array<String>)
     )
 
     val mainMenuItems: List<Menu> = listOf(
-        Menu(0, "Работа с архивами",  { currentMenu.showMenu(firstMenuItems) } ),
-        Menu(1, "Работа с заметками", { currentMenu.showMenu(secondMenuItems)} ),
+        Menu(0, "Работа с архивами",  { menuChoice.showMenu(firstMenuItems) } ),
+        Menu(1, "Работа с заметками", { menuChoice.showMenu(secondMenuItems)} ),
     )
 
-    val listOfMenu:  List<List<Menu>> = listOf(
-        mainMenuItems,
-        firstMenuItems,
-        secondMenuItems,
+    val listOfMenu:  List<MenuItem> = listOf(
+        MenuItem(0, mainMenuItems),
+        MenuItem(1, firstMenuItems),
+        MenuItem(2, mainMenuItems)
     )
 
-    var currentNum : Int = currentMenu.showMenu(mainMenuItems)
+    var currentMenuItem: MenuItem = listOfMenu[0]
+    var prevMenuItem: MenuItem = listOfMenu[0]
+    var nwextuItem: MenuItem = listOfMenu[0]
+
+    var currentNum : Int = menuChoice.showMenu(listOfMenu[0].items)
+    var prevNum : Int = 0
+    var nextNum : Int = 0
+
+
+    var stopWorkWithMenu: Boolean = true
+
+    while(stopWorkWithMenu){
+        listOfMenu[prevNum].items[currentNum].action()
+        listOfMenu[prevNum].number
+        //prevNum = currentNum
+        //currentNum = listOfMenu[currentNum].number
+
+    }
+
+
+
 
 
 
