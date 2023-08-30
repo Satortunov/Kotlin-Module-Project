@@ -15,23 +15,22 @@ class MenuCreate
  {
   var exitCode: Boolean = true
   var menuItemNumber: String? = "0"
+  var rightEntry: Boolean = false
+
   while (exitCode) {
 
    for (item in menuItems) {
     println("${item.number} - ${item.title}")
    }
-   println("${menuItems.size + 1} - Выход")
-
+   println("${menuItems.size} - Выход")
 
    print("Введите номер элемента меню: ")
    menuItemNumber = readLine()
-   var rightEntry: Boolean = false
+
+
+   if (menuItemNumber.toString().toInt() is Int) {
    for (item in menuItems) {
-    if (menuItemNumber == item.number.toString()) {
-     rightEntry = true
-    }
-    if (menuItemNumber == (item.number + 1).toString()) {
-     rightEntry = true
+      if ((menuItemNumber.toString().toInt() == item.number) || (menuItemNumber.toString().toInt() == menuItems.size)) { rightEntry = true }
     }
    }
    if (rightEntry == true) {
