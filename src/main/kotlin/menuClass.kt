@@ -2,8 +2,8 @@ package MenuClass
 import java.util.Scanner
 import kotlin.reflect.typeOf
 
-class MenuItem(val number: Int, val title: String)
-/*, val action: () -> Unit*/
+class MenuItem(val number: Int, val title: String, val action: () -> Unit)
+
 {
 
 }
@@ -21,11 +21,12 @@ class Menu(val numberOfMenu: Int, val items: List<MenuItem>)
             print("Выберите пункт меню: ")
             menuChoice = scanner.nextLine()
             if ((menuChoice.toIntOrNull() is Int)) {
-                if ( (menuChoice.toInt() >= 0) && (menuChoice.toInt() <= items.size)) { rightChoice = true }
+                if ( (menuChoice.toInt() >= 0) && (menuChoice.toInt() <= items.size - 1)) { rightChoice = true }
+
             } else {
-                println(menuChoice)
-                println("Повторите ввод")
+               println("\nНеправильный ввод. ")
             }
+
         }
         return menuChoice.toInt()
 
