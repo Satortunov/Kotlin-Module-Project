@@ -1,161 +1,56 @@
-VERSION 1
-fun main(args: Array<String>)
-{
-    var newArchive: ArchiveActions = ArchiveActions()
-    var arciveList:  MutableList<Archive> = ArrayList()
-    var showMenu: Boolean = true
 
-    val mainMenuItems: List<Menu> = listOf(
-        Menu(1, "Работа с архивами",  { Menu.showMenu(1)} ),
-        Menu(2, "Работа с заметками", {} ),
-    )
+    var currentMenu: Menu = Menu(0, ArrayList<MenuItem>())
+     var itemChoice: Int = 0
 
-    val firstMenuItems: List<Menu> = listOf(
-        Menu(1, "Создать архив", {}),
-        Menu(2, "Удалить архив", {}),
-    )
-    val secondMenuItems: List<Menu> = listOf(
-        Menu(1, "Создать заметку", {}),
-        Menu(2, "Удалить заметку", {}),
-    )
-     val listOfMenu:  List<List<Menu>> = listOf(
-        mainMenuItems,
-        firstMenuItems,
-        secondMenuItems,
-    )
+     val rootMenu: List<MenuItem> = listOf(
+         MenuItem(0, "Работа с архивами", 1, { currentMenu.showMenu() }), //Показать меню firstMenu
+         MenuItem(1, "Работа с заметками",2, { currentMenu.showMenu() }),//показать список архтвов и предложить выбрать архив из списка, после показать его заметки
+         MenuItem(2, "Выход", -1, {}), // завершить работу программы
+     )
 
-    var currentMenu = MenuCreate(listOfMenu[0])
-    var currentMenuItem = currentMenu.showMenu(listOfMenu[0])
-    listOfMenu[0][0].action()
+     val firstMenu: List<MenuItem> = listOf(
+         MenuItem(0, "Добавить архив в список", 0, {}), // добавление архива
+         MenuItem(1, "Удалить архив из списка", 0, {}), // удалить архив, показать списко архивоа и меню thirdMenu
+         MenuItem(2, "Выбрать архив из списка", 0, {}), // показать списко архивоа и меню thirdMenu
+         MenuItem(3, "Выход", 0, {}), //Перейти в rootMenu
+     )
+          val secondtMenu: List<MenuItem> = listOf(
+          MenuItem(0, "Добавить заметку в список", 0, {}), //Добавление заметки в список
+          MenuItem(1, "Удалить заметку из списка", 0, {}), // Удалить заметку из списка, вызывать fourthdMenu
+          MenuItem(2, "Выход", 0, {}), //удаление заметки из списк
+      )
 
-    println(listOfMenu[0][0].title)
+     val listOfMenu:  List<Menu> = listOf(
+         Menu(0, rootMenu),
+         Menu(1, firstMenu),
+         Menu(2, secondtMenu),
+     )
+
+     var currentIndex: Int = 0
+     var prevIndex: Int = 0
+     var nextIndex: Int = 0
+     var showContent: Boolean = true
+
+     currentMenu = Menu(0, listOfMenu[currentIndex].items)
+     itemChoice = listOfMenu[currentIndex].showMenu()
+
+     while (showContent) {
+
+         if (itemChoice == listOfMenu[currentIndex].items.size - 1) {
+             if (listOfMenu[currentIndex].items[itemChoice].nextMenuNumber == -1) { showContent = false }
+             else {
+                 currentIndex = prevIndex
+                 currentMenu = listOfMenu[currentIndex]
+                 itemChoice = currentMenu.showMenu()
+             }
+
+         } else {
+             nextIndex = listOfMenu[currentIndex].items[itemChoice].nextMenuNumber
+             currentMenu = listOfMenu[nextIndex]
+             currentIndex = nextIndex
+             //itemChoice = currentMenu.showMenu()
+             currentMenu.items[itemChoice].action()
+         }
+     }
 
 }
-
-VERSION 2
-fun main(args: Array<String>)
-{
-    var archiveWorks: ArchiveActions = ArchiveActions()
-    var notesList : MutableList<Notes> = ArrayList()
-    var archiveList : MutableList<Archive> = ArrayList()
-    var menuChoice: MenuCreate = MenuCreate()
-    var currentArchive: Archive = Archive("", notesList)
-
-    val secondMenuItems: List<Menu> = listOf(
-        Menu(0, "Создать заметку", {  }),
-        Menu(1, "Удалить заметку", { archiveWorks.deleteNotesItem(notesList) }),
-    )
-
-    val firstMenuItems: List<Menu> = listOf(
-        Menu(0, "Создать архив", { archiveWorks.createArchieve(archiveList) }),
-        Menu(1, "Удалить архив", { archiveWorks.deleteArchieveItem(archiveList) }),
-    )
-
-    val mainMenuItems: List<Menu> = listOf(
-        Menu(0, "Работа с архивами",  { menuChoice.showMenu(firstMenuItems) } ),
-        Menu(1, "Работа с заметками", { menuChoice.showMenu(secondMenuItems)} ),
-    )
-
-    val listOfMenu:  List<MenuItem> = listOf(
-        MenuItem(0, mainMenuItems),
-        MenuItem(1, firstMenuItems),
-        MenuItem(2, mainMenuItems)
-    )
-
-    var currentMenuItem: MenuItem = listOfMenu[0]
-    var prevMenuItem: MenuItem = listOfMenu[0]
-    var nwextuItem: MenuItem = listOfMenu[0]
-
-    var currentNum : Int = menuChoice.showMenu(listOfMenu[0].items)
-    var prevNum : Int = 0
-    var nextNum : Int = 0
-
-
-    var stopWorkWithMenu: Boolean = true
-
-    while(stopWorkWithMenu){
-        listOfMenu[prevNum].items[currentNum].action()
-        listOfMenu[prevNum].number
-        //prevNum = currentNum
-        //currentNum = listOfMenu[currentNum].number
-
-    }
-
-
-
-
-
-
-
-    /*listOfMenu[0][0].action()
-    listOfMenu[0][1].action()
-    listOfMenu[1][0].action()
-    listOfMenu[1][1].action()
-    listOfMenu[2][0].action()
-    listOfMenu[2][1].action()*/
-
-    VERSION 3
-
-
-        val rootMenu: List<MenuItem> = listOf(
-            MenuItem(0, "Работа с архивами"), //Показать меню firstMenu
-            MenuItem(1, "Работа с заметками" ),//показать список архтвов и предложить выбрать архив из списка, после показать его заметки
-            MenuItem(2, "Выход" ), // завершить работу программы
-        )
-        val firstMenu: List<MenuItem> = listOf(
-            MenuItem(0, "Добавить архив в список"), // добавление архива
-            MenuItem(1, "Удалить архив из списка" ), // удалить архив, показать списко архивоа и меню thirdMenu
-            MenuItem(2, "Выбрать архив из списка" ), // показать списко архивоа и меню thirdMenu
-            MenuItem(3, "Выход" ), //Перейти в rootMenu
-        )
-        val secondtMenu: List<MenuItem> = listOf(
-        MenuItem(0, "Добавить заметку в список"), //Добавление заметки в список
-        MenuItem(1, "Удалить заметку из списка" ), // Удалить заметку из списка, вызывать fourthdMenu
-        MenuItem(2, "Выход" ), //удаление заметки из списк
-    )
-        val thirdMenu: List<MenuItem> = listOf(
-            MenuItem(0, "Выбрать архив из списка"), //Показать список заметок, предаврительно выбрав архив
-            MenuItem(1, "Выход" ), // двыход в зависимости от того, откуда зашли
-        )
-        val fourthdMenu: List<MenuItem> = listOf(
-            MenuItem(0, "Выбрать заметку из списка"), //Показать список заметок, предаврительно выбрав архив
-            MenuItem(1, "Выход" ), // добавление заметки в список заметок
-        )
-        val listOfMenu:  List<Menu> = listOf(
-            Menu(0, rootMenu),
-            Menu(1, firstMenu),
-            Menu(2, secondtMenu),
-            Menu(3, thirdMenu),
-            Menu(4, fourthdMenu),
-        )
-    val rootMenu: List<MenuItem> = listOf(
-        MenuItem(0, "Работа с архивами"), //Показать меню firstMenu
-        MenuItem(1, "Работа с заметками" ),//показать список архтвов и предложить выбрать архив из списка, после показать его заметки
-        MenuItem(2, "Выход" ), // завершить работу программы
-    )
-    val firstMenu: List<MenuItem> = listOf(
-        MenuItem(0, "Добавить архив в список"), // добавление архива
-        MenuItem(1, "Удалить архив из списка" ), // удалить архив, показать списко архивоа и меню thirdMenu
-        MenuItem(2, "Выбрать архив из списка" ), // показать списко архивоа и меню thirdMenu
-        MenuItem(3, "Выход" ), //Перейти в rootMenu
-    )
-    val secondtMenu: List<MenuItem> = listOf(
-    MenuItem(0, "Добавить заметку в список"), //Добавление заметки в список
-    MenuItem(1, "Удалить заметку из списка" ), // Удалить заметку из списка, вызывать fourthdMenu
-    MenuItem(2, "Выход" ), //удаление заметки из списк
-)
-    val thirdMenu: List<MenuItem> = listOf(
-        MenuItem(0, "Выбрать архив из списка"), //Показать список заметок, предаврительно выбрав архив
-        MenuItem(1, "Выход" ), // двыход в зависимости от того, откуда зашли
-    )
-    val fourthdMenu: List<MenuItem> = listOf(
-        MenuItem(0, "Выбрать заметку из списка"), //Показать список заметок, предаврительно выбрав архив
-        MenuItem(1, "Выход" ), // добавление заметки в список заметок
-    )
-    val listOfMenu:  List<Menu> = listOf(
-        Menu(0, rootMenu),
-        Menu(1, firstMenu),
-        Menu(2, secondtMenu),
-        Menu(3, thirdMenu),
-        Menu(4, fourthdMenu),
-    )

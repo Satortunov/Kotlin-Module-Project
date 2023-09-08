@@ -2,8 +2,21 @@ package MenuClass
 import java.util.Scanner
 import kotlin.reflect.typeOf
 
-class MenuItem(val number: Int, val title: String,  val nextMenuNumber: Int)
-// val action: () -> Unit
+
+
+/*class MyObject
+{
+    fun incInt(i: Int, incI: Int) : Int  {return i + incI}
+    operator fun invoke(x: Int): Int { return incInt(x, 3) }
+}
+
+class RunFunction(val funct(Int) : Int)
+{
+
+}*/
+
+class MenuItem(val number: Int, val title: String,  val nextMenuNumber: Int, val action: () -> Unit)
+//
 
 {
 
