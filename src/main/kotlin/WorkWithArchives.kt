@@ -1,5 +1,7 @@
 package WorkWithArchives
 
+import java.util.Scanner
+import Utils.*
 
 class Notes(var notesName: String, var notesText: String)
 {
@@ -11,9 +13,6 @@ class Archive(val archiveName: String, val notes: MutableList<Notes>)
 
 }
 
-class ArchiveActions
-
-{
     fun createArchieve(arciveList : MutableList<Archive>)
     {
         print("Введите имя нового архива: ")
@@ -24,25 +23,40 @@ class ArchiveActions
         println("${newArchieve.archiveName} cоздано!!!!")
     }
 
-    fun showArchieve(arciveList : MutableList<Archive>)
+    fun showArchieve(arciveList : MutableList<Archive>) : Boolean
     {
-        for (i in 0 ..arciveList.size - 1)
-        {
+        if (arciveList.size != 0) {
+            println("\nСписок архивов")
+            for (i in 0 ..arciveList.size - 1) {
             println("${arciveList.indexOf(arciveList[i])} - ${arciveList[i].archiveName}")
+            }
+            println("\n")
+            return true
+        } else {
+            println("В архиве пока нет ни одного элемента, добавьте хотя бы один")
+            return false
+        }
+    }
+
+    fun chooseArchieve(arciveList : MutableList<Archive>) : Int
+    {
+        val scanner = Scanner(System.`in`)
+
+        if (arciveList.size != 0) {
+            return(checkIntEntrty("Введите номер архива для просмотра заметок: ", arciveList.size - 1))
+        } else {
+            println("В архиве пока нет ни одного элемента, добавьте хотя бы один")
+            return -1
         }
     }
 
     fun deleteArchieveItem(arciveList : MutableList<Archive>)
     {
-        print("Введите номер архива для удаления: ")
-        var deleteArchiveName: String = readLine().toString()
-        if ((deleteArchiveName.toInt() <= arciveList.size) && (deleteArchiveName.toInt() >= 0))
-        {
-            arciveList.removeAt(deleteArchiveName.toInt())
+        if (arciveList.size != 0) {
+            arciveList.removeAt(checkIntEntrty("Введите номер архива для удаления: ", arciveList.size - 1))
         } else {
-            println("Вы ввели номер элемента за пределами массива")
+            println("В архиве пока нет ни одного элемента, добавьте хотя бы один")
         }
-
     }
 
     fun createNote(archive: Archive)
@@ -58,26 +72,34 @@ class ArchiveActions
         println("${newNote.notesName} cоздана!!!!")
     }
 
-    fun showNotes(notesList : MutableList<Notes>)
+    fun showNotes(notesList : MutableList<Notes>) : Boolean
     {
-        for (i in 0 ..notesList.size - 1)
-        {
-            print("${notesList.indexOf(notesList[i])} - ${notesList[i].notesName} : ${notesList[i].notesText}")
+        if (notesList.size != 0) {
+            println("\nСписок заметок")
+            for (i in 0 ..notesList.size - 1) {
+                println("Номер заметки: ${notesList.indexOf(notesList[i])} Название заметки: ${notesList[i].notesName}")
+                println("Содержание: ${notesList[i].notesText}")
+            }
+            println("\n")
+            return true
+        } else {
+            println("В архиве пока нет ни одной заметки, добавьте хотя бы одну")
+            return false
         }
     }
 
     fun deleteNotesItem(notesList : MutableList<Notes>)
     {
-        print("Введите номер заметки для удаления: ")
-        var deleteNotesName: String = readLine().toString()
-        if ((deleteNotesName.toInt() <= notesList.size) && (deleteNotesName.toInt() >= 0))
-        {
-            notesList.removeAt(deleteNotesName.toInt())
+        if (notesList.size != 0) {
+            notesList.removeAt(checkIntEntrty("Введите номер заметки для удаления: ", notesList.size)
+            )
         } else {
-            println("Вы ввели номер элемента за пределами массива")
+            println("В архиве пока нет ни одной заметки, добавьте хотя бы одну")
         }
 
     }
-}
+
+
+
 
 
