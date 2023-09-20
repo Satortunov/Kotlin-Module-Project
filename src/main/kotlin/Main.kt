@@ -3,59 +3,69 @@ import WorkWithArchives.*
 
 fun main(args: Array<String>) {
 
-    var currentMenu: Menu = Menu(0, ArrayList<MenuItem>())
+    var currentMenu: Menu = Menu("",0, ArrayList<MenuItem>())
     var itemChoice: Int = 0
     var archiveList : MutableList<Archive> = arrayListOf()
     var currentIndex: Int = 0
     var archiveNum: Int = -1
+    var notesNum = -1
 
     val rootMenu: List<MenuItem> = listOf(
-        MenuItem(0,"Работа с архивами",1,{ println("\n === Меню работы с архивами ===") }), //Показать меню firstMenu
-        MenuItem(1, "Выход", -1, { println("\nВыход из программы") }), // завершить работу программы
+        MenuItem(0,"Работа с архивами",1,{ }),
+        MenuItem(1, "Выход", -1, { }), // завершить работу программы
     )
 
     val firstMenu: List<MenuItem> = listOf(
-        MenuItem(0,"Добавить архив в список",1, { println("\nДобавляю архив в список")
-            createArchieve(archiveList)}), // добавление архива
-        MenuItem(1,"Удалить архив из списка",1, { println("\nУдаляю архив из списка")
-            if (showArchieve(archiveList)) {println("\nУдаляем архив из списка")
+        MenuItem(0,"Добавить архив в список",1, { createArchieve(archiveList)}),
+        MenuItem(1,"Удалить архив из списка",1, {
+            if (showArchieve(archiveList)) {
                 deleteArchieveItem(archiveList)
             } else { println("\nСписок архивов пуст, сначала создайте хотя бы один")
                 itemChoice = 0
             }
-        }), // удалить архив, показать списко архивоа и меню thirdMenu
-        MenuItem(2,"Выбрать архив из списка",2, {
+        }),
+        MenuItem(2,"Выбрать архив из списка для работы с заметками",2, {
             if (showArchieve(archiveList)) { archiveNum = chooseArchieve(archiveList)}
-            else { println("\nСписок архивов пуст, сначала создайте хотя бы один")
+            else { println("Список архивов пуст, сначала создайте хотя бы один")
                 itemChoice = 0
             }
-        }), // показать списко архивоа и меню thirdMenu
-        MenuItem(3, "Выход", 0, { }), //Перейти в rootMenu
+        }),
+        MenuItem(3, "Выход", 0, { }),
     )
     val secondtMenu: List<MenuItem> = listOf(
-        MenuItem(0,"Показать заметки в архиве",2, { println("\nПоказываю заметки в архиве")
-            showNotes(archiveList[archiveNum].notes)}),
-        MenuItem(1,"Добавить заметку в список",2, { println("\nДобавляю заметку в список")
-            createNote(archiveList[archiveNum])
-        }), //Добавление заметки в список
-        MenuItem(2,"Удалить заметку из списка",2, { println("\nУдаляю заметку из списка")
-            deleteNotesItem(archiveList[archiveNum].notes)
-        }), // Удалить заметку из списка, вызывать fourthdMenu
-        MenuItem(3, "Выход", 1, { }), //Переход к меню архивов
+        MenuItem(0,"Добавить заметку в список",2, { createNote(archiveList[archiveNum]) }),
+        MenuItem(1,"Удалить заметку из списка",2, {
+            if (showNotes(archiveList[archiveNum])) {
+                deleteNotesItem(archiveList[archiveNum])
+            } else { println("\nСписок заметок пуст, сначала создайте хотя бы один")
+                itemChoice = 0
+            }
+        }),
+        MenuItem(2,"Показать заметки в архиве",2, { showNotes(archiveList[archiveNum])}),
+        MenuItem(3,"Показать заметку",2, {
+            if (showNotes(archiveList[archiveNum])) {
+                notesNum = chooseNote(archiveList[archiveNum])
+                showNote(archiveList[archiveNum], notesNum)
+            } else {
+                println("Список заметок пуст, сначала создайте хотя бы одну")
+                itemChoice = 0
+            }
+        }),
+        MenuItem(4, "Выход", 1, { }), //Переход к меню архивов
+
     )
 
     val listOfMenu: List<Menu> = listOf(
-        Menu(0, rootMenu),
-        Menu(1, firstMenu),
-        Menu(2, secondtMenu),
+        Menu("=== Главное меню ===",0, rootMenu),
+        Menu("=== Меню работы с архивами ===",1, firstMenu),
+        Menu("=== Меню работы с заметками ===",2, secondtMenu),
     )
 
 
     var showContent: Boolean = true
 
-    currentMenu = Menu(0, listOfMenu[currentIndex].items)
-    println("\n=== Главное меню ===")
-    itemChoice = listOfMenu[currentIndex].showMenu()
+    currentMenu = Menu(listOfMenu[currentIndex].menuTitle,0, listOfMenu[currentIndex].items)
+    itemChoice = listOfMenu[currentIndex].showMenu(listOfMenu[currentIndex].menuTitle)
 
     while (showContent) {
 
@@ -66,14 +76,14 @@ fun main(args: Array<String>) {
                 currentMenu.items[itemChoice].action()
                 currentMenu = listOfMenu[listOfMenu[currentIndex].items[itemChoice].nextMenuNumber]
                 currentIndex = currentMenu.numberOfMenu
-                itemChoice = listOfMenu[currentIndex].showMenu()
+                itemChoice = listOfMenu[currentIndex].showMenu(listOfMenu[currentIndex].menuTitle)
             }
 
         } else {
             currentMenu.items[itemChoice].action()
             currentMenu = listOfMenu[listOfMenu[currentIndex].items[itemChoice].nextMenuNumber]
             currentIndex = currentMenu.numberOfMenu
-            itemChoice = listOfMenu[currentIndex].showMenu()
+            itemChoice = listOfMenu[currentIndex].showMenu(listOfMenu[currentIndex].menuTitle)
 
 
         }

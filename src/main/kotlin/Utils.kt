@@ -10,13 +10,14 @@ fun checkIntEntrty(entryMessage: String, sizeOfArray : Int) : Int {
         userChoice = scanner.nextLine()
         if ((userChoice.toIntOrNull() is Int)) {
             if ( (userChoice.toInt() >= 0) && (userChoice.toInt() <= sizeOfArray)) { rightChoice = true }
-            else { println("\nНеправильный ввод. Будьте внимательнее! ") }
+            else { println("Неправильный ввод. Будьте внимательнее!\n") }
 
         } else {
-            println("\nНеправильный ввод. Будьте внимательнее! ")
+            println("Неправильный ввод. Будьте внимательнее!\n")
         }
 
     }
+    println("")
     return userChoice.toInt()
 
 }
